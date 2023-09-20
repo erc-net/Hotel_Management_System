@@ -6,7 +6,8 @@
 [![GitHub Forks](https://img.shields.io/github/forks/your-username/management-system)](https://github.com/your-username/management-system/network/members)
 
 Welcome to the Project Name Management System! This system is designed to help you manage and organize various aspects of your project or business effectively.
-![](https://cdn.imgbin.com/4/18/12/imgbin-python-programming-language-logo-computer-programming-linux-6f4Hhw3Jf6YXXLPRdaWPCGkeL.jpg), ![](https://www.pcwdld.com/wp-content/uploads/systems-management.jpg)
+
+![](https://www.pcwdld.com/wp-content/uploads/systems-management.jpg)
 
 
 ## Table of Contents
