@@ -4,9 +4,13 @@ from tkinter import ttk
 import random
 import mysql.connector
 from tkinter import messagebox
+"""
+Eric T Taruwinga | +263777799316 |erictaruwinga0827@gmail.com
+"""
 
 
-class Cust_Win: 
+class Cust_Win:  
+  
   def __init__(self,root):
     self.root=root
     self.root.title("Hospital Management System")
@@ -34,17 +38,11 @@ class Cust_Win:
     
     
     #======================title=========================== 
-    lbl_title=Label(self.root,text="ADD CUSTOMER DETAILS",font=("times new roman",18,"bold"),bg="black",fg="gold",bd=4,relief=RIDGE)
+    lbl_title=Label(self.root,text="ADD CUSTOMER DETAILS",font=("times new roman",18,"bold"),bg="black",fg="White",bd=4,relief=RIDGE)
     lbl_title.place(x=0,y=0,width=1295,height=50)
     
     
-    #=======================logo================================
-    img2=Image.open(r"C:\Users\Israel\Desktop\hotel systems project\images\logo.jpg")
-    img2=img2.resize((100,40),Image.LANCZOS)
-    self.photoimg2=ImageTk.PhotoImage(img2)
     
-    lblimg=Label(self.root,image=self.photoimg2,bd=0,relief=RIDGE)
-    lblimg.place(x=5,y=2,width=100,height=40)
     
     #====================label frame=======================
     LabelFrameleft=LabelFrame(self.root,bd=2,relief=RIDGE,text="Customer Details",font=("arial",12,"bold"),padx=2,)
@@ -138,16 +136,16 @@ class Cust_Win:
     btn_frame=Frame(LabelFrameleft,bd=2,relief=RIDGE)
     btn_frame.place(x=0,y=400,width=412,height=40)
     
-    btnAdd=Button(btn_frame,text="Add",command=self.add_data,font=("arial",13,"bold"),bg="black",fg="gold",width=9)
+    btnAdd=Button(btn_frame,text="Add",command=self.add_data,font=("arial",13,"bold"),bg="black",fg="white",width=9)
     btnAdd.grid(row=0,column=0,padx=1)
     
-    btnUpdate=Button(btn_frame,text="Update",command=self.update,font=("arial",13,"bold"),bg="black",fg="gold",width=9)
+    btnUpdate=Button(btn_frame,text="Update",command=self.update,font=("arial",13,"bold"),bg="black",fg="white",width=9)
     btnUpdate.grid(row=0,column=1,padx=1)
     
-    btnDelete=Button(btn_frame,text="Delete",command=self.mDelete,font=("arial",13,"bold"),bg="black",fg="gold",width=9)
+    btnDelete=Button(btn_frame,text="Delete",command=self.mDelete,font=("arial",13,"bold"),bg="black",fg="white",width=9)
     btnDelete.grid(row=0,column=2,padx=1)
     
-    btnReset=Button(btn_frame,text="Reset",command=self.reset,font=("arial",13,"bold"),bg="black",fg="gold",width=9)
+    btnReset=Button(btn_frame,text="Reset",command=self.reset,font=("arial",13,"bold"),bg="black",fg="white",width=9)
     btnReset.grid(row=0,column=3,padx=1)
     
     
@@ -169,10 +167,10 @@ class Cust_Win:
     txtSearch=ttk.Entry(Table_frame,textvariable=self.txt_search,width=24,font=("arial",13,"bold"))
     txtSearch.grid(row=0,column=2,padx=2)
     
-    btnSearch=Button(Table_frame,command=self.search,text="Search",font=("arial",13,"bold"),bg="black",fg="gold",width=9)
+    btnSearch=Button(Table_frame,command=self.search,text="Search",font=("arial",13,"bold"),bg="black",fg="white",width=9)
     btnSearch.grid(row=0,column=3,padx=1)
     
-    btnShowAll=Button(Table_frame,command=self.fetch_data,text="Show All",font=("arial",13,"bold"),bg="black",fg="gold",width=9)
+    btnShowAll=Button(Table_frame,command=self.fetch_data,text="Show All",font=("arial",13,"bold"),bg="black",fg="white",width=9)
     btnShowAll.grid(row=0,column=4,padx=1)
     
     

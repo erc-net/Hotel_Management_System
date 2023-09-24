@@ -6,6 +6,9 @@ from time import strftime
 from datetime import datetime
 import mysql.connector
 from tkinter import messagebox
+"""
+Eric T Taruwinga | +263777799316 |erictaruwinga0827@gmail.com
+"""
 
 class Roombooking: 
   def __init__(self,root):
@@ -26,17 +29,9 @@ class Roombooking:
     self.var_total=StringVar()
         
     #======================title=========================== 
-    lbl_title=Label(self.root,text="ROOM-BOOKING",font=("times new roman",18,"bold"),bg="black",fg="gold",bd=4,relief=RIDGE)
+    lbl_title=Label(self.root,text="ROOM-BOOKING",font=("times new roman",18,"bold"),bg="black",fg="white",bd=4,relief=RIDGE)
     lbl_title.place(x=0,y=0,width=1295,height=50)
     
-    
-    #=======================logo================================
-    img2=Image.open(r"C:\Users\Israel\Desktop\hotel systems project\images\logo.jpg")
-    img2=img2.resize((100,40),Image.LANCZOS)
-    self.photoimg2=ImageTk.PhotoImage(img2)
-    
-    lblimg=Label(self.root,image=self.photoimg2,bd=0,relief=RIDGE)
-    lblimg.place(x=5,y=2,width=100,height=40)
     
     #====================label frame=======================
     LabelFrameleft=LabelFrame(self.root,bd=2,relief=RIDGE,text="Roombooking Details",font=("arial",12,"bold"),padx=2,)
@@ -51,7 +46,7 @@ class Roombooking:
     enty_contact.grid(row=0,column=1,sticky=W)
     
     #Fetch data button
-    btnFetchData=Button(LabelFrameleft,command=self.Fetch_contact,text="Fetch Data",font=("arial",8,"bold"),bg="black",fg="gold",width=8)
+    btnFetchData=Button(LabelFrameleft,command=self.Fetch_contact,text="Fetch Data",font=("arial",8,"bold"),bg="black",fg="white",width=8)
     btnFetchData.place(x=347,y=4)
     
     #Check in date
@@ -67,27 +62,45 @@ class Roombooking:
     txt_check_out=ttk.Entry(LabelFrameleft,textvariable=self.var_checkout,font=("arial",13,"bold"),width=29)
     txt_check_out.grid(row=2,column=1)
     
+    # Room Type
+    label_RoomType = ttk.Label(LabelFrameleft, font=("arial", 12, "bold"), text="Room Type:")
+    label_RoomType.grid(row=3, column=0, sticky=W)
+
+    combo_RoomType = ttk.Combobox(LabelFrameleft, textvariable=self.var_roomtype, font=("arial", 13,"bold"),
+                                    width=28, state="readonly")
+    combo_RoomType["value"] = ("Single", "Double", "Family Suite", "Studio", "Executive Suite", "Royal Suite")
+    combo_RoomType.current(0)
+    combo_RoomType.grid(row=3, column=1)
+    combo_RoomType.bind("<<ComboboxSelected>>", self.load_available_rooms)
+    """
     #room type
     label_RoomType=Label(LabelFrameleft,font=("arial",12,"bold"),text="Room Type:",padx=2,pady=6)
     label_RoomType.grid(row=3, column=0,sticky=W)
-    
-    conn=mysql.connector.connect(host="localhost",username="root",password="eric27",database="management")
-    my_cursor=conn.cursor()
-    my_cursor.execute("select RoomType from details")
-    ide=my_cursor.fetchall()
+
+    #conn=mysql.connector.connect(host="localhost",username="root",password="eric27",database="management")
+    #my_cursor=conn.cursor()
+    #my_cursor.execute("select RoomType from details")
+    #ide=my_cursor.fetchall()
     
     combo_RoomType=ttk.Combobox(LabelFrameleft,textvariable=self.var_roomtype,font=("arial",13,"bold"),width=28,state="readonly")
-    combo_RoomType["value"]=ide
+    combo_RoomType["value"]=("Single","Double","Family Suite","Studio","Executive Suite","Royal Suite")
     combo_RoomType.current(0)
-    combo_RoomType.grid(row=3,column=1)
+    combo_RoomType.grid(row=3,column=1)"""
+    # Available Room
+    lblRoomAvailable = ttk.Label(LabelFrameleft, font=("arial", 12, "bold"), text="Available Room:")
+    lblRoomAvailable.grid(row=4, column=0, sticky=W)
+
+    self.combo_RoomNo = ttk.Combobox(LabelFrameleft, textvariable=self.var_roomavailable, font=("arial", 13, "bold"),width=28, state="readonly")
+    self.combo_RoomNo.grid(row=4, column=1)
     
+    
+    """
+    !!!!!!!!!!!!DO NOT USE THIS CODE !!!!!!!!!!!!!!!!!!!!!!!!!!!
     #Available Room
     lblRoomAvailable=Label(LabelFrameleft,font=("arial",12,"bold"),text="Available Room:",padx=2,pady=6)
     lblRoomAvailable.grid(row=4, column=0,sticky=W)
     #txtRoomavailable=ttk.Entry(LabelFrameleft,textvariable=self.var_roomavailable,font=("arial",13,"bold"),width=29)
     #txtRoomavailable.grid(row=4,column=1)
-    
-    
     
     conn=mysql.connector.connect(host="localhost",username="root",password="eric27",database="management")
     my_cursor=conn.cursor()
@@ -97,13 +110,19 @@ class Roombooking:
     combo_RoomNo=ttk.Combobox(LabelFrameleft,textvariable=self.var_roomavailable,font=("arial",13,"bold"),width=28,state="readonly")
     combo_RoomNo["value"]=rows
     combo_RoomNo.current(0)
-    combo_RoomNo.grid(row=4,column=1)
+    combo_RoomNo.grid(row=4,column=1)"""
     
+
     #Meal
     lblMeal=Label(LabelFrameleft,font=("arial",12,"bold"),text="Meal:",padx=2,pady=6)
     lblMeal.grid(row=5, column=0,sticky=W)
-    txtMeal=ttk.Entry(LabelFrameleft,textvariable=self.var_meal,font=("arial",13,"bold"),width=29)
-    txtMeal.grid(row=5,column=1)
+    
+    #txtMeal=ttk.Entry(LabelFrameleft,textvariable=self.var_meal,font=("arial",13,"bold"),width=29)
+    #txtMeal.grid(row=5,column=1)
+    combo_meal=ttk.Combobox(LabelFrameleft,textvariable=self.var_meal,font=("arial",12,"bold"),width=27,state="readonly")
+    combo_meal["value"]=("Breakfast","Lunch","Dinner","Breakfast and Lunch","Breakfast and Dinner","Lunch and Dinner","Breakfast,Lunch and Dinner")
+    combo_meal.current(0)
+    combo_meal.grid(row=5,column=1)
     
     #No of days
     lblNoOfDays=Label(LabelFrameleft,font=("arial",12,"bold"),text="No of days:",padx=2,pady=6)
@@ -131,23 +150,23 @@ class Roombooking:
     
     #==================BillButton=================
     
-    btnBill=Button(LabelFrameleft,command=self.total,text="Bill",font=("arial",11,"bold"),bg="black",fg="gold",width=9)
+    btnBill=Button(LabelFrameleft,command=self.total,text="Bill",font=("arial",11,"bold"),bg="black",fg="white",width=9)
     btnBill.grid(row=10,column=0,padx=1,sticky=W)
     
      #==========================btns==========================
     btn_frame=Frame(LabelFrameleft,bd=2,relief=RIDGE)
     btn_frame.place(x=0,y=400,width=412,height=40)
     
-    btnAdd=Button(btn_frame,text="Add",command=self.add_data,font=("arial",13,"bold"),bg="black",fg="gold",width=9)
+    btnAdd=Button(btn_frame,text="Add",command=self.add_data,font=("arial",13,"bold"),bg="black",fg="white",width=9)
     btnAdd.grid(row=0,column=0,padx=1)
     
-    btnUpdate=Button(btn_frame,text="Update",command=self.update,font=("arial",13,"bold"),bg="black",fg="gold",width=9)
+    btnUpdate=Button(btn_frame,text="Update",command=self.update,font=("arial",13,"bold"),bg="black",fg="white",width=9)
     btnUpdate.grid(row=0,column=1,padx=1)
     
-    btnDelete=Button(btn_frame,text="Delete",command=self.mDelete,font=("arial",13,"bold"),bg="black",fg="gold",width=9)
+    btnDelete=Button(btn_frame,text="Delete",command=self.mDelete,font=("arial",13,"bold"),bg="black",fg="white",width=9)
     btnDelete.grid(row=0,column=2,padx=1)
     
-    btnReset=Button(btn_frame,text="Reset",command=self.reset,font=("arial",13,"bold"),bg="black",fg="gold",width=9)
+    btnReset=Button(btn_frame,text="Reset",command=self.reset,font=("arial",13,"bold"),bg="black",fg="white",width=9)
     btnReset.grid(row=0,column=3,padx=1)
     
     
@@ -180,10 +199,10 @@ class Roombooking:
     txtSearch=ttk.Entry(Table_frame,textvariable=self.txt_search,width=24,font=("arial",13,"bold"))
     txtSearch.grid(row=0,column=2,padx=2)
     
-    btnSearch=Button(Table_frame,text="Search",command=self.search,font=("arial",13,"bold"),bg="black",fg="gold",width=9)
+    btnSearch=Button(Table_frame,text="Search",command=self.search,font=("arial",13,"bold"),bg="black",fg="white",width=9)
     btnSearch.grid(row=0,column=3,padx=1)
     
-    btnShowAll=Button(Table_frame,text="Show All",command=self.fetch_data,font=("arial",13,"bold"),bg="black",fg="gold",width=9)
+    btnShowAll=Button(Table_frame,text="Show All",command=self.fetch_data,font=("arial",13,"bold"),bg="black",fg="white",width=9)
     btnShowAll.grid(row=0,column=4,padx=1)
     
     
@@ -457,7 +476,19 @@ class Roombooking:
               self.room_table.insert("", END, values=row)
 
     conn.close()
-  
+    
+  def load_available_rooms(self, event):
+        room_type = self.var_roomtype.get()
+        if room_type:
+            conn = mysql.connector.connect(host="localhost", username="root", password="eric27", database="management")
+            my_cursor = conn.cursor()
+            my_cursor.execute("SELECT RoomNo FROM details WHERE RoomType = %s", (room_type,))
+            rows = my_cursor.fetchall()
+            room_numbers = [row[0] for row in rows]
+            self.combo_RoomNo["values"] = room_numbers
+            self.combo_RoomNo.current(0)
+            conn.close()
+    
   
   def total(self):
     inDate=self.var_checkin.get()
@@ -465,13 +496,459 @@ class Roombooking:
     inDate=datetime.strptime(inDate, "%d/%m/%Y")
     outDate=datetime.strptime(outDate, "%d/%m/%Y")
     self.var_noofsdays.set(abs(outDate-inDate).days)
-    
-    if (self.var_meal.get()=="Breakfast" and self.var_roomtype.get()=="Luxury"):
-      q1=float(300)
-      q2=float(700)
+                     #===================Single Room Type==================
+    if (self.var_meal.get()=="Breakfast" and self.var_roomtype.get()=="Single"):
+      q1=float(24.50)
+      q2=float(80)
       q3=float(self.var_noofsdays.get())
-      q4=float(q1+q2) #1000
-      q5=float(q3*q4) #1000 * no of days
+      q4=float(q1+q2) #104.50
+      q5=float(q3*q4) #104.5 * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+      
+    elif (self.var_meal.get()=="Lunch" and self.var_roomtype.get()=="Single"):
+      q1=float(25.50)
+      q2=float(80)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Dinner" and self.var_roomtype.get()=="Single"):
+      q1=float(28.50)
+      q2=float(80)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+      
+    elif (self.var_meal.get()=="Breakfast and Lunch" and self.var_roomtype.get()=="Single"):
+      q1=float(50)
+      q2=float(80)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Breakfast and Dinner" and self.var_roomtype.get()=="Single"):
+      q1=float(53)
+      q2=float(80)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Lunch and Dinner" and self.var_roomtype.get()=="Single"):
+      q1=float(54)
+      q2=float(80)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Breakfast,Lunch and Dinner" and self.var_roomtype.get()=="Single"):
+      q1=float(62.50)
+      q2=float(80)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+      
+    #===================Double Room Type==================
+    elif (self.var_meal.get()=="Breakfast" and self.var_roomtype.get()=="Double"):
+      q1=float(25.50)
+      q2=float(90.5)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) #104.50
+      q5=float(q3*q4) #104.5 * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+      
+    elif (self.var_meal.get()=="Lunch" and self.var_roomtype.get()=="Double"):
+      q1=float(26.50)
+      q2=float(90.5)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Dinner" and self.var_roomtype.get()=="Double"):
+      q1=float(30.50)
+      q2=float(90.5)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+      
+    elif (self.var_meal.get()=="Breakfast and Lunch" and self.var_roomtype.get()=="Double"):
+      q1=float(52)
+      q2=float(90.5)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Breakfast and Dinner" and self.var_roomtype.get()=="Double"):
+      q1=float(55)
+      q2=float(90.5)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Lunch and Dinner" and self.var_roomtype.get()=="Double"):
+      q1=float(56.45)
+      q2=float(90.5)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Breakfast,Lunch and Dinner" and self.var_roomtype.get()=="Double"):
+      q1=float(75.75)
+      q2=float(90.5)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    #===================Double Room Type==================
+    elif (self.var_meal.get()=="Breakfast" and self.var_roomtype.get()=="Family Suite"):
+      q1=float(34.50)
+      q2=float(102.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) #104.50
+      q5=float(q3*q4) #104.5 * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+      
+    elif (self.var_meal.get()=="Lunch" and self.var_roomtype.get()=="Family Suite"):
+      q1=float(36.80)
+      q2=float(102.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Dinner" and self.var_roomtype.get()=="Family Suite"):
+      q1=float(38.54)
+      q2=float(102.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+      
+    elif (self.var_meal.get()=="Breakfast and Lunch" and self.var_roomtype.get()=="Family Suite"):
+      q1=float(58.48)
+      q2=float(102.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Breakfast and Dinner" and self.var_roomtype.get()=="Family Suite"):
+      q1=float(60.49)
+      q2=float(102.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Lunch and Dinner" and self.var_roomtype.get()=="Family Suite"):
+      q1=float(64.35)
+      q2=float(102.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Breakfast,Lunch and Dinner" and self.var_roomtype.get()=="Family Suite"):
+      q1=float(88.73)
+      q2=float(102.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    #===================Studio Room Type==================
+    elif (self.var_meal.get()=="Breakfast" and self.var_roomtype.get()=="Studio"):
+      q1=float(44.50)
+      q2=float(108.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) #104.50
+      q5=float(q3*q4) #104.5 * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+      
+    elif (self.var_meal.get()=="Lunch" and self.var_roomtype.get()=="Studio"):
+      q1=float(46.80)
+      q2=float(108.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Dinner" and self.var_roomtype.get()=="Studio"):
+      q1=float(48.54)
+      q2=float(108.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+      
+    elif (self.var_meal.get()=="Breakfast and Lunch" and self.var_roomtype.get()=="Studio"):
+      q1=float(68.48)
+      q2=float(108.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Breakfast and Dinner" and self.var_roomtype.get()=="Studio"):
+      q1=float(70.49)
+      q2=float(108.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Lunch and Dinner" and self.var_roomtype.get()=="Studio"):
+      q1=float(70.35)
+      q2=float(108.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Breakfast,Lunch and Dinner" and self.var_roomtype.get()=="Studio"):
+      q1=float(92.73)
+      q2=float(108.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    #===================Executive Suite Room Type==================
+    elif (self.var_meal.get()=="Breakfast" and self.var_roomtype.get()=="Executive Suite"):
+      q1=float(54.50)
+      q2=float(118.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) #104.50
+      q5=float(q3*q4) #104.5 * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+      
+    elif (self.var_meal.get()=="Lunch" and self.var_roomtype.get()=="Executive Suite"):
+      q1=float(56.80)
+      q2=float(118.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Dinner" and self.var_roomtype.get()=="Executive Suite"):
+      q1=float(58.54)
+      q2=float(118.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+      
+    elif (self.var_meal.get()=="Breakfast and Lunch" and self.var_roomtype.get()=="Executive Suite"):
+      q1=float(78.48)
+      q2=float(118.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Breakfast and Dinner" and self.var_roomtype.get()=="Executive Suite"):
+      q1=float(80.49)
+      q2=float(118.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Lunch and Dinner" and self.var_roomtype.get()=="Executive Suite"):
+      q1=float(80.35)
+      q2=float(118.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Breakfast,Lunch and Dinner" and self.var_roomtype.get()=="Executive Suite"):
+      q1=float(102.73)
+      q2=float(118.75)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
       Tax="USD "+str("%.2f"%((q5)*0.1)) 
       ST="USD "+str("%.2f"%((q5))) 
       TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
@@ -480,9 +957,97 @@ class Roombooking:
       self.var_total.set(TT)
     
     
+    #===================Executive Suite Room Type==================
+    elif (self.var_meal.get()=="Breakfast" and self.var_roomtype.get()=="Royal Suite"):
+      q1=float(64.50)
+      q2=float(130.98)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) #104.50
+      q5=float(q3*q4) #104.5 * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+      
+    elif (self.var_meal.get()=="Lunch" and self.var_roomtype.get()=="Royal Suite"):
+      q1=float(66.80)
+      q2=float(130.98)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
     
+    elif (self.var_meal.get()=="Dinner" and self.var_roomtype.get()=="Royal Suite"):
+      q1=float(68.54)
+      q2=float(130.98)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+      
+    elif (self.var_meal.get()=="Breakfast and Lunch" and self.var_roomtype.get()=="Royal Suite"):
+      q1=float(88.48)
+      q2=float(130.98)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
     
+    elif (self.var_meal.get()=="Breakfast and Dinner" and self.var_roomtype.get()=="Royal Suite"):
+      q1=float(90.49)
+      q2=float(130.98)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
     
+    elif (self.var_meal.get()=="Lunch and Dinner" and self.var_roomtype.get()=="Royal Suite"):
+      q1=float(94.35)
+      q2=float(130.98)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
+    
+    elif (self.var_meal.get()=="Breakfast,Lunch and Dinner" and self.var_roomtype.get()=="Royal Suite"):
+      q1=float(112.73)
+      q2=float(130.98)
+      q3=float(self.var_noofsdays.get())
+      q4=float(q1+q2) 
+      q5=float(q3*q4) # * no of days
+      Tax="USD "+str("%.2f"%((q5)*0.1)) 
+      ST="USD "+str("%.2f"%((q5))) 
+      TT="USD "+str("%.2f"%(q5+((q5)*0.1))) 
+      self.var_paidtax.set(Tax)
+      self.var_actualtotal.set(ST)
+      self.var_total.set(TT)
     
 
 if __name__ == "__main__":
