@@ -27,7 +27,7 @@ CREATE TABLE `room` (
   `check_in` varchar(45) DEFAULT NULL,
   `check_out` varchar(45) DEFAULT NULL,
   `roomtype` varchar(45) DEFAULT NULL,
-  `Room` varchar(45) NOT NULL,
+  `roomavailable` varchar(45) NOT NULL,
   `meal` varchar(45) DEFAULT NULL,
   `noOfdays` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`Room`)
